@@ -1,8 +1,11 @@
 package edu.esprit.fitness.services;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import edu.esprit.fitness.persistence.Player;
 import edu.esprit.fitness.persistence.Team;
@@ -42,6 +45,25 @@ public class TournamentService implements TournamentServiceRemote, TournamentSer
 
 	public void delete(Team team) {
 		em.remove(em.merge(team));
+	}
+
+	public List<Player> findPlayersByTeam(Team team) {
+		List<Player> players = null;
+		String jpql = "select p from Player p where p.team=:x";
+		Query query = em.createQuery(jpql);
+		query.setParameter("x", team);
+		players = query.getResultList();
+		return players;
+	}
+
+	public void tranfer(Player player, Team team) {
+		Player managed = em.merge(player);
+		managed.setTeam(team);
+	}
+
+	public void free(Player player) {
+		Player managed = em.merge(player);
+		managed.setTeam(null);
 	}
 
 }

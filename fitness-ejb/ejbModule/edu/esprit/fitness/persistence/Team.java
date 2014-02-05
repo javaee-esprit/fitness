@@ -50,7 +50,7 @@ public class Team implements Serializable {
 		this.name = name;
 	}
 	
-	@OneToMany( mappedBy = "team" )
+	@OneToMany( mappedBy = "team" , fetch=FetchType.EAGER, cascade={CascadeType.PERSIST,CascadeType.REMOVE})
 	public List<Player> getPlayers() {
 		return players;
 	}

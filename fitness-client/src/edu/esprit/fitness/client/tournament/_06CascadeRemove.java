@@ -4,6 +4,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import edu.esprit.fitness.persistence.Team;
 import edu.esprit.fitness.services.TournamentServiceRemote;
 
 public class _06CascadeRemove {
@@ -13,6 +14,12 @@ public class _06CascadeRemove {
 		Context ctx = new InitialContext();
 		
 		TournamentServiceRemote remote = (TournamentServiceRemote) ctx.lookup("ejb:/fitness-ejb/TournamentService!edu.esprit.fitness.services.TournamentServiceRemote");
+		
+		Team t1 = remote.findTeam(1);
+		
+		
+		
+		remote.delete(t1);
 	}
 
 }
