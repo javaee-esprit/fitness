@@ -2,6 +2,8 @@ package edu.esprit.fitness.persistence;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -13,10 +15,12 @@ import javax.persistence.*;
 
 public class Team implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private String name;
-	private static final long serialVersionUID = 1L;
+	
+	private List<Player> players;
 
 	public Team() {
 	}   
@@ -46,7 +50,17 @@ public class Team implements Serializable {
 		this.name = name;
 	}
 	
-	
+	@OneToMany( mappedBy = "team" )
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+
+
 	public String toString() {
 		return "Team [id=" + id + ", name=" + name + "]";
 	}

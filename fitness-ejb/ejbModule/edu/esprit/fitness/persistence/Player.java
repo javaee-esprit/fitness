@@ -13,10 +13,12 @@ import javax.persistence.*;
 
 public class Player implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private String name;
-	private static final long serialVersionUID = 1L;
+	
+	private Team team; 
 
 	public Player() {
 	}   
@@ -42,6 +44,18 @@ public class Player implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	@ManyToOne
+	@JoinColumn( name = "team_fk" )
+	public Team getTeam() {
+		return team;
+	}
+
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 
 
